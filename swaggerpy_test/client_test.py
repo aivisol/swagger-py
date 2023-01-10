@@ -84,7 +84,7 @@ class ClientTest(unittest.TestCase):
 
         resp = self.uut.pet.deletePet(petId=1234)
         self.assertEqual(requests.codes.no_content, resp.status_code)
-        self.assertEqual('', resp.content)
+        self.assertEqual('', resp.content.decode('utf-8'))
 
     def setUp(self):
         # Default handlers for all swagger.py access

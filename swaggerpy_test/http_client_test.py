@@ -37,7 +37,7 @@ class SynchronousClientTestCase(unittest.TestCase):
         self.assertEqual('application/x-www-form-urlencoded',
                          httpretty.last_request().headers['content-type'])
         self.assertEqual("foo=bar",
-                         httpretty.last_request().body)
+                         httpretty.last_request().body.decode('utf-8'))
 
     @httpretty.activate
     def test_basic_auth(self):
@@ -53,7 +53,7 @@ class SynchronousClientTestCase(unittest.TestCase):
         self.assertEqual('expected', resp.text)
         self.assertEqual({'foo': ['bar']},
                          httpretty.last_request().querystring)
-        self.assertEqual('Basic %s' % base64.b64encode("unit:peekaboo"),
+        self.assertEqual('Basic %s' % base64.b64encode("unit:peekaboo".encode('utf-8')).decode('utf-8'),
                          httpretty.last_request().headers.get('Authorization'))
 
     @httpretty.activate
